@@ -1,3 +1,4 @@
 <div>
-    <h1>Hola desde el componente</h1>
+    <h1>{{ $name }}</h1>
+
 </div>
