@@ -11,12 +11,20 @@ class CreatePost extends Component
         //colecciones, modelos, datetime,etc
     public $title;
 
-    public $name, $email
-;
-    public function mount($user)
+    public $name, $email;
+
+    public function mount(User $user)
     {
-        $this->name = $user->name;
-        $this->email = $user->email;
+        /* $this->name = $user->name;
+        $this->email = $user->email; */
+
+        $this->fill(
+            $user->only(['name', 'email'])
+        );
+    }
+
+    public function save(){
+        //dd($this->name);
     }
 
     public function render()
