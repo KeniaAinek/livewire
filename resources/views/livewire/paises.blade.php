@@ -1,6 +1,6 @@
 <div>
 
-    <x-button class="mb-2" wire:click="$set('count',0)">
+    <x-button class="mb-2" wire:click="$toggle('open')">
         Mostrar / Ocultar
     </x-button>
 
@@ -10,19 +10,21 @@
             Agregar
         </x-button>
     </form>
+ @if ($open)
 
-    <ul class="list-disc list-inside space-y-2">
-        @foreach($paises as $index => $pais)
-        <li wire:key='pais-{{$index}}'>
-            <span wire:mouseenter='changeActive("{{ $pais }}")'>
-                ({{ $index }}) {{ $pais }}
+ <ul class="list-disc list-inside space-y-2">
+     @foreach($paises as $index => $pais)
+     <li wire:key='pais-{{$index}}'>
+         <span wire:mouseenter='changeActive("{{ $pais }}")'>
+             ({{ $index }}) {{ $pais }}
             </span>
-        <x-danger-button wire:click='delete({{ $index }})'>
-            X
-        </x-danger-button> </li>
+            <x-danger-button wire:click='delete({{ $index }})'>
+                X
+            </x-danger-button> </li>
 
-        @endforeach
-    </ul>
-    {{ $active}}
-    {{ $count }}
+            @endforeach
+        </ul>
+ @endif
+    {{-- {{ $active}}
+    {{ $count }} --}}
 </div>
