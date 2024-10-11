@@ -2,16 +2,16 @@
     <div class="bg-white shadow rounded-lg p-6">
         <form wire:submit='save'>
             <div class="mb-4">
-                <label>
+                <x-label>
                     Nombre
-                </label>
+                </x-label>
                 <x-input class="w-full" wire:model='title' required />
             </div>
 
             <div class="mb-4">
-                <label>
+                <x-label>
                     Contenido
-                </label>
+                </x-label>
                 <x-text-area class="w-full" wire:model='content' required></x-text-area>
             </div>
             <div class="mb-4">
@@ -19,11 +19,16 @@
                     Categoria
                 </x-label>
                 <x-select class="w-full" wire:model='category_id'>
-                    @foreach ($categories as $category )
-                        <option value="{{ $category->id }}">
+
+                    <option value="" disabled>
+                        Selecciona una categoria
+                    </option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" >
                             {{ $category->name }}
                         </option>
                     @endforeach
+                
                 </x-select>
             </div>
 

@@ -11,7 +11,7 @@ class Formulario extends Component
 
     public $categories, $tags;
 
-    public $category_id, $title, $content;
+    public $category_id = '', $title, $content;
 
     public $selected_tags = [];
 
