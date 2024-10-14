@@ -2,33 +2,66 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
-use App\Models\Category;
+use App\Livewire\Forms\PostCreateForm;
+use App\Livewire\Forms\PostEditForm;
 use App\Models\Tag;
+use App\Models\Post;
+use App\Models\Category;
+use Livewire\Component;
+use Livewire\Attributes\Rule;
 
 class Formulario extends Component
 {
 
-    public $categories, $tags;
+    //inicializacion de variables para metodo mount
+    public $categories, $tags, $posts;
 
-    public $category_id = '', $title, $content;
 
-    public $selected_tags = [];
+    //datos de formulario
+    public PostCreateForm $postCreate;
+
+    //datos de formulario editar
+    public PostEditForm $postEdit;
 
     public function mount()
     {
         $this->categories = Category::all();
         $this->tags = Tag::all();
+        $this->posts = Post::all();
     }
 
     public function save()
     {
-        dd([
-            'category_id' => $this->category_id,
-            'title' => $this->title,
-            'content' => $this->content,
-            'tags' => $this->selected_tags
-        ]);
+        $this->postCreate->save();
+        $this->posts = Post::all();
+
+        $this->dispatch('post-created', 'Nuevo articulo creado');
+    }
+
+    public function edit($postId)
+    {
+        $this->resetValidation();
+
+        $this->postEdit->edit($postId);
+    }
+
+    public function update()
+    {
+        $this->postEdit->update();
+        $this->posts = Post::all();
+
+        $this->dispatch('post-created', 'Articulo actualizado');
+    }
+
+    public function destroy($postId)
+    {
+        $post = Post::find($postId);
+
+        $post->delete();
+
+        $this->posts = Post::all();
+
+        $this->dispatch('post-created', 'Articulo eliminado');
     }
 
     public function render()
