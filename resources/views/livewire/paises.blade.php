@@ -5,7 +5,7 @@
     </x-button>
 
     <form class="mb-4" wire:submit='save'>
-        <x-input wire:model='pais' placeholder="Ingrese un pais" wire:keydown.space='increment' />
+        <x-input wire:model.live='pais' placeholder="Ingrese un pais" wire:keydown.space='increment' />
         <x-button>
             Agregar
         </x-button>

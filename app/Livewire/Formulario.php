@@ -2,40 +2,66 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
-use App\Models\Category;
+use App\Livewire\Forms\PostCreateForm;
+use App\Livewire\Forms\PostEditForm;
 use App\Models\Tag;
+use App\Models\Post;
+use App\Models\Category;
+use Livewire\Component;
+use Livewire\Attributes\Rule;
 
 class Formulario extends Component
 {
 
-    public $categories, $tags;
+    //inicializacion de variables para metodo mount
+    public $categories, $tags, $posts;
 
-    public $category_id = '', $title, $content;
-    public $selectedTags = [];
 
-    public $posts;
+    //datos de formulario
+    public PostCreateForm $postCreate;
+
+    //datos de formulario editar
+    public PostEditForm $postEdit;
 
     public function mount()
     {
         $this->categories = Category::all();
         $this->tags = Tag::all();
+        $this->posts = Post::all();
     }
 
     public function save()
     {
-        /* $post = \App\Models\Post::create([
-            'category_id' => $this->category_id,
-            'title' => $this->title,
-            'content' => $this->content
-        ]); */
+        $this->postCreate->save();
+        $this->posts = Post::all();
 
-        $post = Post::create(
-            $this->only('category_id', 'title', 'content')
-        );
+        $this->dispatch('post-created', 'Nuevo articulo creado');
+    }
 
-        $post->tags()->attach($this->selectedTags);
-        $this->reset(['category_id', 'title', 'content', 'selectedTags']);
+    public function edit($postId)
+    {
+        $this->resetValidation();
+
+        $this->postEdit->edit($postId);
+    }
+
+    public function update()
+    {
+        $this->postEdit->update();
+        $this->posts = Post::all();
+
+        $this->dispatch('post-created', 'Articulo actualizado');
+    }
+
+    public function destroy($postId)
+    {
+        $post = Post::find($postId);
+
+        $post->delete();
+
+        $this->posts = Post::all();
+
+        $this->dispatch('post-created', 'Articulo eliminado');
     }
 
     public function render()

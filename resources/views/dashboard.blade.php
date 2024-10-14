@@ -10,6 +10,10 @@
             {{-- @livewire('create-post',['title' => 'Create Post',
             'user' => 1]) --}}
             @livewire('formulario')
+
+            <div class="mt-8 bg-red-700">
+                @livewire('comments')
+            </div>
         </div>
     </div>
 </x-app-layout>
