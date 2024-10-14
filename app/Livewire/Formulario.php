@@ -64,6 +64,11 @@ class Formulario extends Component
         $this->dispatch('post-created', 'Articulo eliminado');
     }
 
+    public function placeholder()
+    {
+        return view('livewire.placeholders.skeleton');
+    }
+
     public function render()
     {
         return view('livewire.formulario');

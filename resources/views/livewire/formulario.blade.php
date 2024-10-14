@@ -24,7 +24,7 @@
                 <x-label>
                     Categoria
                 </x-label>
-                <select wire:model="postCreate.category_id">
+                <select wire:model.live="postCreate.category_id">
                     <option value="" disabled>Selecciona una categoria</option>
                     @foreach ($categories as $item)
                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -156,13 +156,13 @@
 
     </x-dialog-modal>
 
-    <script>
-        document.addEventListener('livewire:initialized', function(){
+    @push('js')
 
-            Livewire.on('post-created', function(comment){
-                console.log(comment);
-            });
+        <script>
+                Livewire.on('post-created', function(comment){
+                    console.log(comment);
         });
-    </script>
+        </script>
+    @endpush
 
 </div>
