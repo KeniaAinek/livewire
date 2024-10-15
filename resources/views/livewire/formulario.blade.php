@@ -1,6 +1,12 @@
 <div>
     <div class="bg-white shadow rounded-lg p-6 mb-8">
         <h1 class="text-2xl font-bold text-md">Crear post</h1>
+
+        @if ($postCreate->image)
+            <img src="{{ $postCreate->image->temporaryUrl() }}" alt="">
+
+        @endif
+
         <form wire:submit='save()'>
             <div class="mb-4">
                 <x-label>
@@ -32,7 +38,12 @@
                 </select>
                 <x-input-error for="postCreate.category_id" />
             </div>
-
+            <div class="mb-4">
+                <x-label>
+                    Imagen
+                </x-label>
+                <input type="file" wire:model='postCreate.image' wire:Key='{{ $postCreate->imageKey }}'/>
+            </div>
             <div>
                 <x-label>
                     Etiquetas

@@ -9,9 +9,12 @@ use App\Models\Post;
 use App\Models\Category;
 use Livewire\Component;
 use Livewire\Attributes\Rule;
+use Livewire\WithFileUploads;
 
 class Formulario extends Component
 {
+
+    use WithFileUploads;
 
     //inicializacion de variables para metodo mount
     public $categories, $tags, $posts;

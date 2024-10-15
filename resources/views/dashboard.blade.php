@@ -9,7 +9,7 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             {{-- @livewire('create-post',['title' => 'Create Post',
             'user' => 1]) --}}
-            <livewire:formulario lazy/>
+            <livewire:formulario {{-- lazy --}}/>
 
             <div class="mt-8 bg-red-700">
                 @livewire('comments')

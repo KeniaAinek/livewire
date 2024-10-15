@@ -18,6 +18,9 @@ class PostCreateForm extends Form
     #[Rule('required|array', as: 'Etiquetas')]
     public $tags = [];
 
+    public $imageKey;
+    public $image;
+
     public function save()
     {
         $this->validate();
@@ -28,9 +31,17 @@ class PostCreateForm extends Form
             'category_id' => $this->category_id
         ]);
 
+
         $post->tags()->attach($this->tags);
 
+        if($this->image){
+
+            $post->image_path = $this->image->store('posts', 'public');
+            $post->save();
+        }
         $this->reset();
+
+        $this->imageKey = rand();
 
     }
 }
